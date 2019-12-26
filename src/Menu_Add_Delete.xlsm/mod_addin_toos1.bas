@@ -120,3 +120,15 @@ End Function
 Private Sub update_status()
     get_files ThisWorkbook.ActiveSheet, ThisWorkbook.Path & "\"
 End Sub
+            
+Private Sub copy_addin()
+                dim fs as object
+                Set fs = CreateObject("Scripting.FileSystemObject")
+                    dim str1 as string,str2 as string
+                    str1=Application.UserLibraryPath
+                    if right(str1,1)<>"\" then str1=str1 & "\"
+                        str2=dir(str1 & "*.xlam")
+                        do while len(str2)>0
+                           fs.copyFile str1 & str2, ThisWorkbook.Path & "\"
+                        loop
+            End sub
