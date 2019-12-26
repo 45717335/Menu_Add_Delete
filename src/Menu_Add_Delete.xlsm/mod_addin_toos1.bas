@@ -36,6 +36,14 @@ Function get_addin(fln As String) As AddIn
             Exit For
         End If
     Next
+    If get_addin Is Nothing Then
+        For Each get_addin In Application.AddIns2
+        If fln = get_addin.Name Then
+            Exit For
+        End If
+        Next
+    End If
+    
 End Function
 
 Sub add_mm()
@@ -95,11 +103,11 @@ End Sub
 
 Private Function get_files(ws As Worksheet, fd As String)
     On Error Resume Next
-    If Right(fd, 1) <> "\" Then fd = fd & "\"
+    If right(fd, 1) <> "\" Then fd = fd & "\"
     Dim str1 As String
     Dim i As Integer
     Dim c As Range
-    str1 = Dir(fd & "*.xlam")
+    str1 = dir(fd & "*.xlam")
     i = 3
     Do While Len(str1) > 0
         ws.Range("A" & i) = fd & str1
@@ -109,10 +117,14 @@ Private Function get_files(ws As Worksheet, fd As String)
             If get_addin(str1).Installed = True Then
                 ws.Range("A" & i).Interior.Color = RGB(0, 255, 0)
             Else
+                If get_addin(str1).IsOpen = True Then
+                ws.Range("A" & i).Interior.Color = RGB(0, 255, 0)
+                Else
                 ws.Range("A" & i).Interior.Color = RGB(255, 255, 255)
+                End If
             End If
         End If
-        str1 = Dir()
+        str1 = dir()
         i = i + 1
     Loop
 End Function
