@@ -100,7 +100,7 @@ Private Function get_files(ws As Worksheet, fd As String)
     Dim i As Integer
     Dim c As Range
     str1 = Dir(fd & "*.xlam")
-    i = 1
+    i = 3
     Do While Len(str1) > 0
         ws.Range("A" & i) = fd & str1
         If get_addin(str1) Is Nothing Then
