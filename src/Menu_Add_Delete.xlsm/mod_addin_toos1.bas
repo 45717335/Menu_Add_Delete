@@ -129,7 +129,7 @@ Sub copy_addin()
     If right(str1, 1) <> "\" Then str1 = str1 & "\"
     str2 = dir(str1 & "*.xlam")
     Do While Len(str2) > 0
-        If fs.FileExists(str1 & str2) = False Then
+        If fs.FileExists(ThisWorkbook.Path & "\" & str2) = False Then
             fs.copyFile str1 & str2, ThisWorkbook.Path & "\"
         End If
         str2 = dir()
