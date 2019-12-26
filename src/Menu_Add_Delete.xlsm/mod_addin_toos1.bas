@@ -121,14 +121,17 @@ Private Sub update_status()
     get_files ThisWorkbook.ActiveSheet, ThisWorkbook.Path & "\"
 End Sub
             
-Private Sub copy_addin()
-                dim fs as object
-                Set fs = CreateObject("Scripting.FileSystemObject")
-                    dim str1 as string,str2 as string
-                    str1=Application.UserLibraryPath
-                    if right(str1,1)<>"\" then str1=str1 & "\"
-                        str2=dir(str1 & "*.xlam")
-                        do while len(str2)>0
-                           fs.copyFile str1 & str2, ThisWorkbook.Path & "\"
-                        loop
-            End sub
+Sub copy_addin()
+    Dim fs As Object
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Dim str1 As String, str2 As String
+    str1 = Application.UserLibraryPath
+    If right(str1, 1) <> "\" Then str1 = str1 & "\"
+    str2 = dir(str1 & "*.xlam")
+    Do While Len(str2) > 0
+        If fs.FileExists(str1 & str2) = False Then
+            fs.copyFile str1 & str2, ThisWorkbook.Path & "\"
+        End If
+        str2 = dir()
+    Loop
+End Sub
