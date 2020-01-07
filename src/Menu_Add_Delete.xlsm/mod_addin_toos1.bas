@@ -1,6 +1,6 @@
 Attribute VB_Name = "mod_addin_toos1"
 Option Explicit
-
+'https://github.com/45717335/Menu_Add_Delete
 Function Update(sAddinServerPath As String, Optional b_r As Boolean = False) As String
     On Error Resume Next
     Dim NewAddin As Workbook
